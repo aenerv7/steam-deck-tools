@@ -15,7 +15,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExternalHelpers", "External
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SteamController", "SteamController\SteamController.csproj", "{A5A9DCD4-4686-49A6-836A-81498226B94B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Updater", "Updater\Updater.csproj", "{7FBC87CE-5C6E-4A8E-AF07-E310AD311073}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Updater", "Updater\Updater.csproj", "{7FBC87CE-5C6E-4A8E-AF07-E310AD311073}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

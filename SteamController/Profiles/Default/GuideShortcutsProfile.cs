@@ -7,8 +7,8 @@ namespace SteamController.Profiles.Default
 {
     public abstract class GuideShortcutsProfile : ShortcutsProfile
     {
-        public readonly TimeSpan HoldForKill = TimeSpan.FromSeconds(3);
         public readonly TimeSpan HoldForClose = TimeSpan.FromSeconds(1);
+        public readonly TimeSpan HoldForKill = TimeSpan.FromSeconds(3);
 
         protected override bool SteamShortcuts(Context c)
         {
@@ -59,6 +59,7 @@ namespace SteamController.Profiles.Default
                 }
             }
 
+            /*
             if (c.Steam.BtnL1.Pressed())
             {
                 if (Process.GetProcessesByName("Magnify").Any())
@@ -72,13 +73,15 @@ namespace SteamController.Profiles.Default
                     c.Keyboard.KeyPress(VirtualKeyCode.LWIN, VirtualKeyCode.OEM_PLUS);
                 }
             }
+            */
 
-            if (c.Steam.BtnR1.Pressed())
+            if(c.Steam.BtnR1.Pressed())
             {
-                // take screenshot
+                // Take screenshot
                 c.Keyboard.KeyPress(VirtualKeyCode.LWIN, VirtualKeyCode.SNAPSHOT);
             }
 
+            /*
             if (c.Steam.BtnVirtualLeftThumbUp.JustPressed() || c.Steam.BtnVirtualLeftThumbUp.HoldRepeat(ShortcutConsumed))
             {
                 WindowsSettingsBrightnessController.Increase(5);
@@ -108,6 +111,16 @@ namespace SteamController.Profiles.Default
             if (c.Steam.BtnDpadUp.Pressed())
             {
                 c.Keyboard.KeyPress(new VirtualKeyCode[] { VirtualKeyCode.LCONTROL, VirtualKeyCode.LMENU }, VirtualKeyCode.VK_U);
+            }
+            */
+            if(c.Steam.BtnVirtualLeftThumbUp.JustPressed() || c.Steam.BtnVirtualLeftThumbUp.HoldRepeat(ShortcutConsumed))
+            {
+                WindowsSettingsBrightnessController.Increase(2);
+            }
+
+            if(c.Steam.BtnVirtualLeftThumbDown.JustPressed() || c.Steam.BtnVirtualLeftThumbDown.HoldRepeat(ShortcutConsumed))
+            {
+                WindowsSettingsBrightnessController.Increase(-2);
             }
 
             return true;
