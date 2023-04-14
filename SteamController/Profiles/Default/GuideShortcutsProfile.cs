@@ -1,19 +1,22 @@
 using System.Diagnostics;
+
 using ExternalHelpers;
+
 using PowerControl.Helpers;
+
 using WindowsInput;
 
 namespace SteamController.Profiles.Default
 {
     public abstract class GuideShortcutsProfile : ShortcutsProfile
     {
-        public readonly TimeSpan HoldForClose = TimeSpan.FromSeconds(1);
-        public readonly TimeSpan HoldForKill = TimeSpan.FromSeconds(3);
 
         protected override bool SteamShortcuts(Context c)
         {
-            if (base.SteamShortcuts(c))
+            if(base.SteamShortcuts(c))
+            {
                 return true;
+            }
 
             c.Steam.LizardButtons = SettingsDebug.Default.LizardButtons;
             c.Steam.LizardMouse = SettingsDebug.Default.LizardMouse;
@@ -22,41 +25,51 @@ namespace SteamController.Profiles.Default
             EmulateMouseOnRPad(c);
             EmulateMouseOnRStick(c);
 
-            if (c.Steam.BtnA.Pressed())
+            if(c.Steam.BtnA.Pressed())
             {
                 c.Keyboard.KeyPress(VirtualKeyCode.RETURN);
             }
 
-            if (c.Steam.BtnB.HoldOnce(HoldForClose, ShortcutConsumed))
+            if(c.Steam.BtnB.Pressed())
+            {
+                c.Keyboard.KeyPress(VirtualKeyCode.ESCAPE);
+            }
+            else if(c.Steam.BtnB.HoldOnce(HoldLong, ShortcutConsumed))
             {
                 Helpers.ForegroundProcess.Store();
 
                 // close application
                 c.Keyboard.KeyPress(VirtualKeyCode.LMENU, VirtualKeyCode.F4);
             }
-            else if (c.Steam.BtnB.HoldChain(HoldForKill, ShortcutConsumed, "KillProcess"))
+            else if(c.Steam.BtnB.HoldChain(HoldExtraLong, ShortcutConsumed, "KillProcess"))
             {
                 // We want to KILL only the process that
                 // was foreground last time
                 Helpers.ForegroundProcess.Kill(true);
             }
 
-            if (c.Steam.BtnX.Pressed())
+            if(c.Steam.BtnX.Pressed())
             {
-                switch (Settings.Default.KeyboardStyle)
+                switch(Settings.Default.KeyboardStyle)
                 {
                     case Settings.KeyboardStyles.CTRL_WIN_O:
                         c.Keyboard.KeyPress(new VirtualKeyCode[] { VirtualKeyCode.LCONTROL, VirtualKeyCode.LWIN }, VirtualKeyCode.VK_O);
                         break;
 
                     case Settings.KeyboardStyles.WindowsTouch:
-                        if (!OnScreenKeyboard.Toggle())
+                        if(!OnScreenKeyboard.Toggle())
                         {
                             // Fallback to CTRL+WIN+O
                             c.Keyboard.KeyPress(new VirtualKeyCode[] { VirtualKeyCode.LCONTROL, VirtualKeyCode.LWIN }, VirtualKeyCode.VK_O);
                         }
                         break;
                 }
+            }
+
+            if(c.Steam.BtnY.Pressed())
+            {
+                // Take screenshot
+                c.Keyboard.KeyPress(VirtualKeyCode.LWIN, VirtualKeyCode.SNAPSHOT);
             }
 
             /*
@@ -73,7 +86,6 @@ namespace SteamController.Profiles.Default
                     c.Keyboard.KeyPress(VirtualKeyCode.LWIN, VirtualKeyCode.OEM_PLUS);
                 }
             }
-            */
 
             if(c.Steam.BtnR1.Pressed())
             {
@@ -81,7 +93,6 @@ namespace SteamController.Profiles.Default
                 c.Keyboard.KeyPress(VirtualKeyCode.LWIN, VirtualKeyCode.SNAPSHOT);
             }
 
-            /*
             if (c.Steam.BtnVirtualLeftThumbUp.JustPressed() || c.Steam.BtnVirtualLeftThumbUp.HoldRepeat(ShortcutConsumed))
             {
                 WindowsSettingsBrightnessController.Increase(5);
@@ -112,27 +123,28 @@ namespace SteamController.Profiles.Default
             {
                 c.Keyboard.KeyPress(new VirtualKeyCode[] { VirtualKeyCode.LCONTROL, VirtualKeyCode.LMENU }, VirtualKeyCode.VK_U);
             }
-            */
+
             if(c.Steam.BtnVirtualLeftThumbUp.JustPressed() || c.Steam.BtnVirtualLeftThumbUp.HoldRepeat(ShortcutConsumed))
             {
-                WindowsSettingsBrightnessController.Increase(2);
+                WindowsSettingsBrightnessController.Increase(5); // 2
             }
 
             if(c.Steam.BtnVirtualLeftThumbDown.JustPressed() || c.Steam.BtnVirtualLeftThumbDown.HoldRepeat(ShortcutConsumed))
             {
-                WindowsSettingsBrightnessController.Increase(-2);
+                WindowsSettingsBrightnessController.Increase(-5); // -2
             }
+            */
 
             return true;
         }
 
         protected void EmulateScrollOnLPad(Context c)
         {
-            if (c.Steam.LPadX)
+            if(c.Steam.LPadX)
             {
                 c.Mouse.HorizontalScroll(c.Steam.LPadX.DeltaValue * Context.PadToWhellSensitivity);
             }
-            if (c.Steam.LPadY)
+            if(c.Steam.LPadY)
             {
                 c.Mouse.VerticalScroll(c.Steam.LPadY.DeltaValue * Context.PadToWhellSensitivity * (double)Settings.Default.ScrollDirection);
             }
@@ -140,7 +152,7 @@ namespace SteamController.Profiles.Default
 
         protected void EmulateMouseOnRStick(Context c)
         {
-            if (c.Steam.RightThumbX || c.Steam.RightThumbY)
+            if(c.Steam.RightThumbX || c.Steam.RightThumbY)
             {
                 c.Mouse.MoveBy(
                     c.Steam.RightThumbX.DeltaValue * Context.JoystickToMouseSensitivity,
@@ -151,7 +163,7 @@ namespace SteamController.Profiles.Default
 
         protected void EmulateMouseOnRPad(Context c, bool useButtonTriggers = true)
         {
-            if (useButtonTriggers)
+            if(useButtonTriggers)
             {
                 c.Mouse[Devices.MouseController.Button.Right] = c.Steam.BtnL2 || c.Steam.BtnLPadPress;
                 c.Mouse[Devices.MouseController.Button.Left] = c.Steam.BtnR2 || c.Steam.BtnRPadPress;
@@ -162,7 +174,7 @@ namespace SteamController.Profiles.Default
                 c.Mouse[Devices.MouseController.Button.Left] = c.Steam.BtnRPadPress;
             }
 
-            if (c.Steam.RPadX || c.Steam.RPadY)
+            if(c.Steam.RPadX || c.Steam.RPadY)
             {
                 c.Mouse.MoveBy(
                     c.Steam.RPadX.DeltaValue * Context.PadToMouseSensitivity,
