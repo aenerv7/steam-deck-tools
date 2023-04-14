@@ -38,13 +38,12 @@ namespace SteamController.Profiles.Default
             {
                 Helpers.ForegroundProcess.Store();
 
-                // close application
+                // Close application
                 c.Keyboard.KeyPress(VirtualKeyCode.LMENU, VirtualKeyCode.F4);
             }
             else if(c.Steam.BtnB.HoldChain(HoldExtraLong, ShortcutConsumed, "KillProcess"))
             {
-                // We want to KILL only the process that
-                // was foreground last time
+                // We want to KILL only the process that was foreground last time
                 Helpers.ForegroundProcess.Kill(true);
             }
 
@@ -70,6 +69,11 @@ namespace SteamController.Profiles.Default
             {
                 // Take screenshot
                 c.Keyboard.KeyPress(VirtualKeyCode.LWIN, VirtualKeyCode.SNAPSHOT);
+            }
+            else if(c.Steam.BtnY.HoldOnce(HoldLong, ShortcutConsumed))
+            {
+                // Press screenshot key only
+                c.Keyboard.KeyPress(VirtualKeyCode.SNAPSHOT);
             }
 
             /*
