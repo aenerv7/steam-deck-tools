@@ -1,13 +1,30 @@
-**This project is provided free of charge, but development of it is not free - it takes a lot of effort**:
-
-- Consider donating to keep this project alive.
-- Donating also helps to fund new features.
+**Consider donating if you are happy with this project:**
 
 <a href='https://ko-fi.com/ayufan' target='_blank'><img height='35' style='border:0px;height:50px;' src='https://az743702.vo.msecnd.net/cdn/kofi3.png?v=0' alt='Buy Me a Coffee at ko-fi.com' /></a> <a href="https://www.paypal.com/donate/?hosted_button_id=DHNBE2YR9D5Y2" target='_blank'><img height='35' src="https://raw.githubusercontent.com/stefan-niedermann/paypal-donate-button/master/paypal-donate-button.png" alt="Donate with PayPal" style='border:0px;height:55px;'/></a>
 
 [**READ IF PLAYING ONLINE GAMES AND/OR GAMES THAT HAVE ANTI-CHEAT ENABLED**](https://steam-deck-tools.ayufan.dev/#anti-cheat-and-antivirus-software)
 
-## 0.6.x
+## #{GIT_TAG_NAME}
+
+- FanControl: Support `0xB030/0xA` device
+
+## 0.6.18
+
+- PowerControl: Add `3 dots + L1 + R1` to reset current resolution
+
+## 0.6.17
+
+- SteamController/PowerControl: Create Logs in Documents/SteamDeckTools/Logs
+- SteamController: Improve **Steam Input** support for **Steam Version 1684535786** WARNING: only English is supported!
+- SteamController: Allow to configure DS4 back buttons
+- SteamController: Allow to `EnableDS4Support=false` to hide DS4 controller
+
+## 0.6.16
+
+- All: Support [unofficial APU drivers](https://sourceforge.net/projects/amernimezone/files/Release%20Polaris-Vega-Navi/AMD%20SOC%20Driver%20Variant/) that present themselves as `AMD Radeon 670M`
+- PowerControl: Show Game Profiles menu item
+
+## 0.6.15
 
 - PowerControl: Allow to set Autostart Profile Settings
 - PowerControl: Show Game Profiles menu item

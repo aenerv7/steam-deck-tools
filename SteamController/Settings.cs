@@ -27,11 +27,25 @@ namespace SteamController
             set { Set("KeepX360AlwaysConnected", value); }
         }
 
+        [Description("Enable DS4 support. If disabled the DS4 will be hidden.")]
+        public bool EnableDS4Support
+        {
+            get { return Get<bool>("EnableDS4Support", true); }
+            set { Set("EnableDS4Support", value); }
+        }
+
         [Description("If current foreground process uses overlay, treat it as a game.")]
         public bool DetectRTSSForeground
         {
             get { return Get<bool>("DetectRTSSForeground", false); }
             set { Set("DetectRTSSForeground", value); }
+        }
+
+        [Description("Create a debug log in Documents/SteamDeckTools/Logs.")]
+        public bool EnableDebugLogging
+        {
+            get { return Get<bool>("EnableDebugLogging", false); }
+            set { Set("EnableDebugLogging", value); CommonHelpers.Log.LogToFileDebug = value; }
         }
 
         [Description("Default profile used when going back to Desktop mode")]

@@ -66,6 +66,10 @@ namespace SteamController
                 startupManager.Startup = false;
             });
 
+            Log.CleanupLogFiles(DateTime.UtcNow.AddDays(-7));
+            Log.LogToFile = true;
+            Log.LogToFileDebug = Settings.Default.EnableDebugLogging;
+
             Instance.RunOnce(TitleWithVersion, "Global\\SteamController");
             Instance.RunUpdater(TitleWithVersion);
 
@@ -95,9 +99,7 @@ namespace SteamController
 #endif
 
             // Set available profiles
-            ProfilesSettings.Helpers.ProfileStringConverter.Profiles = context.Profiles.
-                Where((profile) => profile.Visible).
-                Select((profile) => profile.Name).ToArray();
+            ProfilesSettings.Helpers.ProfileStringConverter.Profiles = context.Profiles;
 
             var contextMenu = new ContextMenuStrip(components);
 
@@ -109,7 +111,7 @@ namespace SteamController
 
             foreach (var profile in context.Profiles)
             {
-                if (profile.Name == "" || !profile.Visible)
+                if (profile.Name == "")
                     continue;
 
                 var profileItem = new ToolStripMenuItem(profile.Name);
@@ -119,6 +121,7 @@ namespace SteamController
                     profileItem.Checked = context.CurrentProfile == profile;
                     profileItem.ToolTipText = String.Join("\n", profile.Errors ?? new string[0]);
                     profileItem.Enabled = profile.Errors is null;
+                    profileItem.Visible = profile.Visible;
                 };
                 contextMenu.Items.Add(profileItem);
             }
@@ -424,9 +427,7 @@ namespace SteamController
                 Dock = DockStyle.Top,
                 Font = new Font("Segoe UI", 9F, FontStyle.Bold),
                 Text = String.Join("\n",
-                    "This project is provided free of charge, but development of it is not free:",
-                    "- Consider donating to keep this project alive.",
-                    "- Donating also helps to fund new features."
+                    "Consider donating if you are happy with this project."
                 ),
                 TextAlign = ContentAlignment.MiddleLeft,
                 Height = 100
