@@ -149,8 +149,8 @@ namespace SteamController
                 contextMenu.Items.Add(startupItem);
             }
 
-            var checkForUpdatesItem = contextMenu.Items.Add("&Check for Updates");
-            checkForUpdatesItem.Click += delegate { Instance.RunUpdater(TitleWithVersion, true); };
+            // var checkForUpdatesItem = contextMenu.Items.Add("&Check for Updates");
+            // checkForUpdatesItem.Click += delegate { Instance.RunUpdater(TitleWithVersion, true); };
 
             var helpItem = contextMenu.Items.Add("&Help");
             helpItem.Click += delegate { Dependencies.OpenLink(Dependencies.SDTURL); };
