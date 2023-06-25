@@ -90,8 +90,8 @@ namespace SteamController
         public enum KeyboardStyles
         {
             DoNotShow,
-            WindowsTouch,
-            CTRL_WIN_O
+            TouchKeyboard,
+            OnScreenKeyboard
         }
 
         [Browsable(true)]
