@@ -9,7 +9,7 @@ namespace SteamController
     internal class Controller : IDisposable
     {
         public const String Title = "Steam Controller";
-        public static readonly String TitleWithVersion = Title + " v" + Application.ProductVersion.ToString();
+        // public static readonly String TitleWithVersion = Title + " v" + Application.ProductVersion.ToString();
 
         public const int ControllerDelayAfterResumeMs = 1000;
 
@@ -45,7 +45,7 @@ namespace SteamController
 
         static Controller()
         {
-            Dependencies.ValidateHidapi(TitleWithVersion);
+            Dependencies.ValidateHidapi(Title);
         }
 
         public Controller()
@@ -70,15 +70,15 @@ namespace SteamController
             Log.LogToFile = true;
             Log.LogToFileDebug = Settings.Default.EnableDebugLogging;
 
-            Instance.RunOnce(TitleWithVersion, "Global\\SteamController");
-            Instance.RunUpdater(TitleWithVersion);
+            Instance.RunOnce(Title, "Global\\SteamController");
+            // Instance.RunUpdater(Title);
 
             if (Instance.WantsRunOnStartup)
                 startupManager.Startup = true;
 
             notifyIcon = new NotifyIcon(components);
             notifyIcon.Icon = WindowsDarkMode.IsDarkModeEnabled ? Resources.microsoft_xbox_controller_off_white : Resources.microsoft_xbox_controller_off;
-            notifyIcon.Text = TitleWithVersion;
+            notifyIcon.Text = Title;
             notifyIcon.Visible = true;
 
 #if DEBUG
@@ -153,7 +153,7 @@ namespace SteamController
             // checkForUpdatesItem.Click += delegate { Instance.RunUpdater(TitleWithVersion, true); };
 
             var helpItem = contextMenu.Items.Add("&Help");
-            helpItem.Click += delegate { Dependencies.OpenLink(Dependencies.SDTURL); };
+            helpItem.Click += delegate { Dependencies.OpenLink("https://github.com/aenerv7/steam-deck-tools"); };
 
             contextMenu.Items.Add(new ToolStripSeparator());
 
@@ -170,7 +170,7 @@ namespace SteamController
             context.SelectDefault = () =>
             {
                 if (!context.SelectProfile(Settings.Default.DefaultProfile, true))
-                    context.SelectProfile(context.Profiles.First().Name, true);
+                    context.SelectProfile("X360", true);
             };
             context.BackToDefault();
 
@@ -217,7 +217,7 @@ namespace SteamController
 
             if (!context.KeyboardMouseValid)
             {
-                notifyIcon.Text = TitleWithVersion + ". Cannot send input.";
+                notifyIcon.Text = Title + ". Cannot send input.";
                 if (WindowsDarkMode.IsDarkModeEnabled)
                     notifyIcon.Icon = Resources.monitor_off_white;
                 else
@@ -225,17 +225,17 @@ namespace SteamController
             }
             else if (!context.X360.Valid || !context.DS4.Valid)
             {
-                notifyIcon.Text = TitleWithVersion + ". Missing ViGEm?";
+                notifyIcon.Text = Title + ". Missing ViGEm?";
                 notifyIcon.Icon = Resources.microsoft_xbox_controller_red;
             }
             else if (profile is not null)
             {
-                notifyIcon.Text = TitleWithVersion + ". Profile: " + profile.FullName;
+                notifyIcon.Text = Title + ". Profile: " + profile.FullName;
                 notifyIcon.Icon = profile.Icon;
             }
             else
             {
-                notifyIcon.Text = TitleWithVersion + ". Disabled";
+                notifyIcon.Text = Title + ". Disabled";
                 if (WindowsDarkMode.IsDarkModeEnabled)
                     notifyIcon.Icon = Resources.microsoft_xbox_controller_off_white;
                 else
@@ -273,7 +273,7 @@ namespace SteamController
                 // Appears that Steam is not installed
                 if (always)
                 {
-                    MessageBox.Show("Steam appears not to be installed.", TitleWithVersion, MessageBoxButtons.OK);
+                    MessageBox.Show("Steam appears not to be installed.", Title, MessageBoxButtons.OK);
                 }
                 return;
             }
@@ -281,7 +281,7 @@ namespace SteamController
             Application.DoEvents();
 
             var page = new TaskDialogPage();
-            page.Caption = TitleWithVersion;
+            page.Caption = Title;
             page.AllowCancel = true;
 
             var useXInputController = page.RadioButtons.Add("Use &X360/DS4 Controller with Steam (preferred)");
@@ -364,7 +364,7 @@ namespace SteamController
             if (steamControllerUpdate && x360ControllerUpdate && ds4ControllerUpdate)
             {
                 notifyIcon.ShowBalloonTip(
-                    3000, TitleWithVersion,
+                    3000, Title,
                     "Steam Configuration changed. You can start Steam now.",
                     ToolTipIcon.Info
                 );
@@ -372,7 +372,7 @@ namespace SteamController
             else
             {
                 notifyIcon.ShowBalloonTip(
-                    3000, TitleWithVersion,
+                    3000, Title,
                     "Steam Configuration was not updated. Maybe Steam is open?",
                     ToolTipIcon.Warning
                 );
@@ -383,7 +383,7 @@ namespace SteamController
         {
             var form = new Form()
             {
-                Text = TitleWithVersion + " Settings",
+                Text = Title + " Settings",
                 StartPosition = FormStartPosition.CenterScreen,
                 Size = new Size(400, 500),
                 AutoScaleMode = AutoScaleMode.Font,
@@ -426,11 +426,9 @@ namespace SteamController
                 Cursor = Cursors.Hand,
                 Dock = DockStyle.Top,
                 Font = new Font("Segoe UI", 9F, FontStyle.Bold),
-                Text = String.Join("\n",
-                    "Consider donating if you are happy with this project."
-                ),
-                TextAlign = ContentAlignment.MiddleLeft,
-                Height = 100
+                Text = "Consider donating original author if you are happy with this project.",
+                TextAlign = ContentAlignment.MiddleCenter,
+                Height = 50
             };
 
             helpLabel.Click += delegate { Dependencies.OpenLink(Dependencies.SDTURL); };
