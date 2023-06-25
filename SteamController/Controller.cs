@@ -137,7 +137,7 @@ namespace SteamController
             settingsItem.Click += Settings_Click;
 
             var shortcutsItem = contextMenu.Items.Add("&Shortcuts");
-            shortcutsItem.Click += delegate { Dependencies.OpenLink(Dependencies.SDTURL + "/shortcuts.html"); };
+            shortcutsItem.Click += delegate { Dependencies.OpenLink("https://github.com/aenerv7/steam-deck-tools/wiki#modified-steam-controller-shortcuts"); };
 
             contextMenu.Items.Add(new ToolStripSeparator());
 
