@@ -98,7 +98,7 @@ namespace SteamController
         [Description("Show Touch Keyboard or CTRL+WIN+O")]
         public KeyboardStyles KeyboardStyle
         {
-            get { return Get<KeyboardStyles>("KeyboardStyle", KeyboardStyles.WindowsTouch); }
+            get { return Get<KeyboardStyles>("KeyboardStyle", KeyboardStyles.TouchKeyboard); }
             set { Set("KeyboardStyle", value); }
         }
 
