@@ -53,7 +53,7 @@ namespace SteamController
         [TypeConverter(typeof(ProfilesSettings.Helpers.ProfileStringConverter))]
         public string DefaultProfile
         {
-            get { return Get<string>("DefaultProfile", "Desktop"); }
+            get { return Get<string>("DefaultProfile", "X360"); }
             set { Set("DefaultProfile", value); }
         }
 
@@ -83,7 +83,7 @@ namespace SteamController
             "'SteamController provided empty configuration'.")]
         public SteamControllerConfigsMode SteamControllerConfigs
         {
-            get { return Get<SteamControllerConfigsMode>("SteamControllerConfigs", SteamControllerConfigsMode.Overwrite); }
+            get { return Get<SteamControllerConfigsMode>("SteamControllerConfigs", SteamControllerConfigsMode.DoNotTouch); }
             set { Set("SteamControllerConfigs", value); }
         }
 
