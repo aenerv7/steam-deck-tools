@@ -45,13 +45,13 @@ namespace SteamController.Profiles.Default
             {
                 switch(Settings.Default.KeyboardStyle)
                 {
-                    case Settings.KeyboardStyles.CTRL_WIN_O:
+                    case Settings.KeyboardStyles.OnScreenKeyboard:
 
                         c.Keyboard.KeyPress(new VirtualKeyCode[] { VirtualKeyCode.LCONTROL, VirtualKeyCode.LWIN }, VirtualKeyCode.VK_O);
 
                         break;
 
-                    case Settings.KeyboardStyles.WindowsTouch:
+                    case Settings.KeyboardStyles.TouchKeyboard:
 
                         if(!OnScreenKeyboard.Toggle())
                         {
