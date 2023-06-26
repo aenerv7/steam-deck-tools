@@ -83,7 +83,7 @@ namespace SteamController
             "'SteamController provided empty configuration'.")]
         public SteamControllerConfigsMode SteamControllerConfigs
         {
-            get { return Get<SteamControllerConfigsMode>("SteamControllerConfigs", SteamControllerConfigsMode.DoNotTouch); }
+            get { return Get<SteamControllerConfigsMode>("SteamControllerConfigs", SteamControllerConfigsMode.Overwrite); }
             set { Set("SteamControllerConfigs", value); }
         }
 
