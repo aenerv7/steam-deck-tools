@@ -242,7 +242,8 @@ namespace SteamController
                     notifyIcon.Icon = Resources.microsoft_xbox_controller_off;
             }
 
-            notifyIcon.Text += String.Format(". Updates: {0}/s", context.UpdatesPerSec);
+            // notifyIcon.Text += String.Format(". Updates: {0}/s", context.UpdatesPerSec);
+            notifyIcon.Text += String.Format(".");
         }
 
         public void Dispose()
@@ -428,7 +429,7 @@ namespace SteamController
                 Font = new Font("Segoe UI", 9F, FontStyle.Bold),
                 Text = "Consider donating original author if you are happy with this project.",
                 TextAlign = ContentAlignment.MiddleCenter,
-                Height = 50
+                Height = 20
             };
 
             helpLabel.Click += delegate { Dependencies.OpenLink(Dependencies.SDTURL); };
