@@ -24,14 +24,13 @@ namespace SteamController
         public struct ContextState
         {
             public bool GameProcessRunning { get; set; }
-            public bool RTSSInForeground { get; set; }
             public bool SteamUsesX360Controller { get; set; }
             public bool SteamUsesDS4Controller { get; set; }
             public bool SteamUsesSteamInput { get; set; }
 
             public bool IsActive
             {
-                get { return RTSSInForeground || GameProcessRunning || SteamUsesX360Controller || SteamUsesDS4Controller || SteamUsesSteamInput; }
+                get { return GameProcessRunning || SteamUsesX360Controller || SteamUsesDS4Controller || SteamUsesSteamInput; }
             }
 
             public override string ToString()
@@ -41,7 +40,6 @@ namespace SteamController
                 if (SteamUsesX360Controller) reason += " steamX360";
                 if (SteamUsesDS4Controller) reason += " steamDS4";
                 if (SteamUsesSteamInput) reason += " steamInput";
-                if (RTSSInForeground) reason += " rtss";
                 return reason;
             }
         }

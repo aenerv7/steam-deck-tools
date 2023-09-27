@@ -39,18 +39,22 @@ namespace SteamController.Profiles.Predefined
                 return Status.Done;
             }
 
-            if (!c.KeyboardMouseValid)
+            /*
+            if (c.KeyboardMouseValid)
+            {
+                c.Steam.LizardButtons = SettingsDebug.Default.LizardButtons;
+                c.Steam.LizardMouse = SettingsDebug.Default.LizardMouse;
+            }
+            else
             {
                 // Failed to acquire secure context
                 // Enable emergency Lizard
                 c.Steam.LizardButtons = true;
                 c.Steam.LizardMouse = true;
             }
-            else
-            {
-                c.Steam.LizardButtons = SettingsDebug.Default.LizardButtons;
-                c.Steam.LizardMouse = SettingsDebug.Default.LizardMouse;
-            }
+            */
+            c.Steam.LizardButtons = false;
+            c.Steam.LizardMouse = false;
 
             EmulateScrollOnLPad(c);
             EmulateScrollOnLStick(c);
