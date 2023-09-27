@@ -122,6 +122,11 @@ namespace SteamController.Profiles.Default
                 c.Keyboard.KeyPress(VirtualKeyCode.ESCAPE);
             }
 
+            if (c.Steam.BtnRightStickPress.Pressed())
+            {
+                c.Keyboard.KeyPress(VirtualKeyCode.LWIN, VirtualKeyCode.VK_D);
+            }
+
             // Additional binding for tool hotkeys (Lossless Fullscreen is nice)
             if (c.Steam.BtnDpadUp.Pressed())
             {
@@ -146,11 +151,23 @@ namespace SteamController.Profiles.Default
         {
             if(c.Steam.LPadX)
             {
-                c.Mouse.HorizontalScroll(c.Steam.LPadX.DeltaValue * Context.PadToWhellSensitivity);
+                c.Mouse.HorizontalScroll(
+                    c.Steam.LPadX.GetDeltaValue(
+                        Context.PadToWhellSensitivity,
+                        Devices.DeltaValueMode.Delta,
+                        10
+                    )
+                );
             }
             if(c.Steam.LPadY)
             {
-                c.Mouse.VerticalScroll(c.Steam.LPadY.DeltaValue * Context.PadToWhellSensitivity * (double)Settings.Default.ScrollDirection);
+                c.Mouse.VerticalScroll(
+                    c.Steam.LPadY.GetDeltaValue(
+                        Context.PadToWhellSensitivity * (double)Settings.Default.ScrollDirection,
+                        Devices.DeltaValueMode.Delta,
+                        10
+                    )
+                );
             }
         }
 
@@ -159,8 +176,16 @@ namespace SteamController.Profiles.Default
             if(c.Steam.RightThumbX || c.Steam.RightThumbY)
             {
                 c.Mouse.MoveBy(
-                    c.Steam.RightThumbX.DeltaValue * Context.JoystickToMouseSensitivity,
-                    -c.Steam.RightThumbY.DeltaValue * Context.JoystickToMouseSensitivity
+                    c.Steam.RightThumbX.GetDeltaValue(
+                        Context.JoystickToMouseSensitivity,
+                        Devices.DeltaValueMode.AbsoluteTime,
+                        Settings.Default.DesktopJoystickDeadzone
+                    ),
+                    -c.Steam.RightThumbY.GetDeltaValue(
+                        Context.JoystickToMouseSensitivity,
+                        Devices.DeltaValueMode.AbsoluteTime,
+                        Settings.Default.DesktopJoystickDeadzone
+                    )
                 );
             }
         }
@@ -181,8 +206,8 @@ namespace SteamController.Profiles.Default
             if(c.Steam.RPadX || c.Steam.RPadY)
             {
                 c.Mouse.MoveBy(
-                    c.Steam.RPadX.DeltaValue * Context.PadToMouseSensitivity,
-                    -c.Steam.RPadY.DeltaValue * Context.PadToMouseSensitivity
+                    c.Steam.RPadX.GetDeltaValue(Context.PadToMouseSensitivity, Devices.DeltaValueMode.Delta, 10),
+                    -c.Steam.RPadY.GetDeltaValue(Context.PadToMouseSensitivity, Devices.DeltaValueMode.Delta, 10)
                 );
             }
         }
