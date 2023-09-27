@@ -8,9 +8,18 @@ namespace SteamController.Profiles.Predefined
     {
         public static readonly TimeSpan HoldToggleTouchPads = TimeSpan.FromMilliseconds(3000);
         public const String TouchPadsConsumed = "TouchPads";
-        public bool EmulateTouchPads { get; set; } = true;
 
-        private bool TouchPadsEnabled { get; set; } = true;
+        public bool EmulateTouchPads
+        {
+            get;
+            set;
+        } = true;
+
+        private bool TouchPadsEnabled
+        {
+            get;
+            set;
+        } = true;
 
         public override System.Drawing.Icon Icon
         {
@@ -40,7 +49,10 @@ namespace SteamController.Profiles.Predefined
 
         internal override ProfilesSettings.BackPanelSettings BackPanelSettings
         {
-            get { return ProfilesSettings.X360BackPanelSettings.Default; }
+            get
+            {
+                return ProfilesSettings.X360BackPanelSettings.Default;
+            }
         }
 
         public override Status Run(Context context)
@@ -53,16 +65,10 @@ namespace SteamController.Profiles.Predefined
             {
                 return Status.Done;
             }
-            
-            if (context.Steam.BtnSteam.Pressed())
-            {
-                context.Keyboard.KeyPress(WindowsInput.VirtualKeyCode.LWIN, WindowsInput.VirtualKeyCode.VK_G);
-                
-                return Status.Done;
-            }
 
             // Controls
-            // context.X360.Overwrite(Xbox360Button.Guide, context.Steam.BtnSteam.Pressed(), 50);
+            context.X360.Overwrite(Xbox360Button.Guide, context.Steam.BtnSteam.Pressed(), HoldShort.Milliseconds);
+            context.X360[Xbox360Button.Guide] = context.Steam.BtnSteam;
             context.X360[Xbox360Button.Back] = context.Steam.BtnMenu;
             context.X360[Xbox360Button.Start] = context.Steam.BtnOptions;
 
@@ -92,7 +98,12 @@ namespace SteamController.Profiles.Predefined
             context.X360[Xbox360Button.LeftShoulder] = context.Steam.BtnL1;
             context.X360[Xbox360Button.RightShoulder] = context.Steam.BtnR1;
 
-            if (EmulateTouchPads && context.Steam.BtnLPadPress.Hold(HoldToggleTouchPads, TouchPadsConsumed) && context.Steam.BtnRPadPress.HoldOnce(HoldToggleTouchPads, TouchPadsConsumed))
+            /*
+            if (EmulateTouchPads
+                && context.Steam.BtnLPadPress.Hold(HoldToggleTouchPads,
+                                                   TouchPadsConsumed)
+                && context.Steam.BtnRPadPress.HoldOnce(HoldToggleTouchPads,
+                                                       TouchPadsConsumed))
             {
                 TouchPadsEnabled = !TouchPadsEnabled;
             }
@@ -101,13 +112,18 @@ namespace SteamController.Profiles.Predefined
             {
                 // Default emulation
                 EmulateScrollOnLPad(context);
-                EmulateMouseOnRPad(context, false);
+                EmulateMouseOnRPad(context,
+                                   false);
             }
             else
             {
                 // We need to disable Lizard Mouse
                 context.Steam.LizardMouse = false;
             }
+            */
+            EmulateScrollOnLPad(context);
+            EmulateMouseOnRPad(context,
+                               false);
 
             return Status.Continue;
         }

@@ -41,14 +41,14 @@ namespace SteamController.Profiles.Predefined
             context.Steam.LizardMouse = false;
             context.DS4.Connected = true;
 
-            // Lock BtnSteam
-            if (context.Steam.BtnSteam.Pressed())
-                btnSteamPressed = new TimedValue<bool>(true, 100);
-
             if (base.Run(context).IsDone)
             {
                 return Status.Done;
             }
+
+            // Lock BtnSteam
+            if (context.Steam.BtnSteam.Pressed())
+                btnSteamPressed = new TimedValue<bool>(true, 300);
 
             // Controls
             context.DS4[DS4Controller.PS] = btnSteamPressed.GetValueOrDefault(false);

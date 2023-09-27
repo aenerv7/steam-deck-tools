@@ -18,8 +18,8 @@ namespace SteamController.Profiles.Default
                 return true;
             }
 
-            c.Steam.LizardButtons = SettingsDebug.Default.LizardButtons;
-            c.Steam.LizardMouse = SettingsDebug.Default.LizardMouse;
+            // c.Steam.LizardButtons = SettingsDebug.Default.LizardButtons;
+            // c.Steam.LizardMouse = SettingsDebug.Default.LizardMouse;
 
             EmulateScrollOnLPad(c);
             EmulateMouseOnRPad(c);
@@ -56,14 +56,14 @@ namespace SteamController.Profiles.Default
                 }
                 */
             }
-            else if(c.Steam.BtnX.HoldOnce(HoldLong, ShortcutConsumed))
+            else if(c.Steam.BtnX.HoldOnce(Hold, ShortcutConsumed))
             {
                 Helpers.ForegroundProcess.Store();
 
                 // Close application
                 c.Keyboard.KeyPress(VirtualKeyCode.LMENU, VirtualKeyCode.F4);
             }
-            else if(c.Steam.BtnX.HoldChain(HoldExtraLong, ShortcutConsumed, "KillProcess"))
+            else if(c.Steam.BtnX.HoldChain(HoldLong, ShortcutConsumed, "KillProcess"))
             {
                 // We want to KILL only the process that was foreground last time
                 Helpers.ForegroundProcess.Kill(true);
@@ -72,9 +72,10 @@ namespace SteamController.Profiles.Default
             if(c.Steam.BtnY.Pressed())
             {
                 // Take screenshot
-                c.Keyboard.KeyPress(VirtualKeyCode.LWIN, VirtualKeyCode.SNAPSHOT);
+                // c.Keyboard.KeyPress(VirtualKeyCode.LWIN, VirtualKeyCode.SNAPSHOT);
+                c.Keyboard.KeyPress(VirtualKeyCode.MENU, VirtualKeyCode.SNAPSHOT);
             }
-            else if(c.Steam.BtnY.HoldOnce(HoldLong, ShortcutConsumed))
+            else if(c.Steam.BtnY.HoldOnce(Hold, ShortcutConsumed))
             {
                 // Press screenshot key only
                 c.Keyboard.KeyPress(VirtualKeyCode.SNAPSHOT);
