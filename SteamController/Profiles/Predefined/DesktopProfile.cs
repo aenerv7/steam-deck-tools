@@ -60,6 +60,8 @@ namespace SteamController.Profiles.Predefined
 
             c.Keyboard[VirtualKeyCode.RETURN] = c.Steam.BtnA;
             c.Keyboard[VirtualKeyCode.BACK] = c.Steam.BtnB;
+            c.Keyboard[VirtualKeyCode.ESCAPE] = c.Steam.BtnX;
+            // c.Keyboard[VirtualKeyCode.SPACE] = c.Steam.BtnY;
 
             return Status.Continue;
         }

@@ -37,8 +37,8 @@ namespace SteamController.Devices
     public class SteamButton : SteamAction
     {
         public static readonly TimeSpan DefaultHoldDuration = TimeSpan.FromMilliseconds(10);
-        public static readonly TimeSpan DefaultFirstHold = TimeSpan.FromMilliseconds(400);
-        public static readonly TimeSpan DefaultRepeatHold = TimeSpan.FromMilliseconds(45);
+        public static readonly TimeSpan DefaultFirstHold = TimeSpan.FromMilliseconds(300);
+        public static readonly TimeSpan DefaultRepeatHold = TimeSpan.FromMilliseconds(50);
 
         private bool rawValue, rawLastValue;
 

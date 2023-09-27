@@ -32,23 +32,14 @@ namespace SteamController.Profiles.Default
 
             if(c.Steam.BtnB.Pressed())
             {
-                c.Keyboard.KeyPress(VirtualKeyCode.ESCAPE);
-            }
-            else if(c.Steam.BtnB.HoldOnce(HoldLong, ShortcutConsumed))
-            {
-                Helpers.ForegroundProcess.Store();
-
-                // Close application
-                c.Keyboard.KeyPress(VirtualKeyCode.LMENU, VirtualKeyCode.F4);
-            }
-            else if(c.Steam.BtnB.HoldChain(HoldExtraLong, ShortcutConsumed, "KillProcess"))
-            {
-                // We want to KILL only the process that was foreground last time
-                Helpers.ForegroundProcess.Kill(true);
+                c.Keyboard.KeyPress(VirtualKeyCode.BACK);
             }
 
             if(c.Steam.BtnX.Pressed())
             {
+                c.Keyboard.KeyPress(VirtualKeyCode.ESCAPE);
+                
+                /*
                 switch(Settings.Default.KeyboardStyle)
                 {
                     case Settings.KeyboardStyles.OnScreenKeyboard:
@@ -63,6 +54,19 @@ namespace SteamController.Profiles.Default
                         }
                         break;
                 }
+                */
+            }
+            else if(c.Steam.BtnX.HoldOnce(HoldLong, ShortcutConsumed))
+            {
+                Helpers.ForegroundProcess.Store();
+
+                // Close application
+                c.Keyboard.KeyPress(VirtualKeyCode.LMENU, VirtualKeyCode.F4);
+            }
+            else if(c.Steam.BtnX.HoldChain(HoldExtraLong, ShortcutConsumed, "KillProcess"))
+            {
+                // We want to KILL only the process that was foreground last time
+                Helpers.ForegroundProcess.Kill(true);
             }
 
             if(c.Steam.BtnY.Pressed())
@@ -74,6 +78,16 @@ namespace SteamController.Profiles.Default
             {
                 // Press screenshot key only
                 c.Keyboard.KeyPress(VirtualKeyCode.SNAPSHOT);
+            }
+
+            if (c.Steam.BtnL1.Pressed() || c.Steam.BtnL1.HoldRepeat(ShortcutConsumed))
+            {
+                WindowsSettingsBrightnessController.Increase(-5);
+            }
+
+            if (c.Steam.BtnR1.Pressed() || c.Steam.BtnR1.HoldRepeat(ShortcutConsumed))
+            {
+                WindowsSettingsBrightnessController.Increase(5);
             }
 
             /*

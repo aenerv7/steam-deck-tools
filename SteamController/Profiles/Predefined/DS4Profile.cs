@@ -45,15 +45,15 @@ namespace SteamController.Profiles.Predefined
             if (context.Steam.BtnSteam.Pressed())
                 btnSteamPressed = new TimedValue<bool>(true, 100);
 
-            // Controls
-            context.DS4[DS4Controller.PS] = btnSteamPressed.GetValueOrDefault(false);
-            context.DS4[DS4Controller.Share] = context.Steam.BtnMenu;
-            context.DS4[DS4Controller.Options] = context.Steam.BtnOptions;
-
             if (base.Run(context).IsDone)
             {
                 return Status.Done;
             }
+
+            // Controls
+            context.DS4[DS4Controller.PS] = btnSteamPressed.GetValueOrDefault(false);
+            context.DS4[DS4Controller.Share] = context.Steam.BtnMenu;
+            context.DS4[DS4Controller.Options] = context.Steam.BtnOptions;
 
             // DPad
             if (context.Steam.BtnDpadUp && context.Steam.BtnDpadLeft)

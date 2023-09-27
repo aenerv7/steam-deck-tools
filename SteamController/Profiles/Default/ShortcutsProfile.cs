@@ -7,7 +7,7 @@ namespace SteamController.Profiles.Default
     public abstract class ShortcutsProfile : Profile
     {
         public const String ShortcutConsumed = "ShortcutsProfile";
-        protected readonly TimeSpan Hold = TimeSpan.FromMilliseconds(200);
+        protected readonly TimeSpan Hold = TimeSpan.FromMilliseconds(300);
         protected readonly TimeSpan HoldLong = TimeSpan.FromSeconds(1);
         protected readonly TimeSpan HoldExtraLong = TimeSpan.FromSeconds(3);
 
@@ -39,7 +39,6 @@ namespace SteamController.Profiles.Default
                 }
             }
 
-            
             // if(c.Steam.BtnQuickAccess.Hold(Press, ShortcutConsumed))
             if(c.Steam.BtnQuickAccess.Pressed())
             {
@@ -53,6 +52,7 @@ namespace SteamController.Profiles.Default
 
                     case Settings.KeyboardStyles.TouchKeyboard:
 
+                        // Toggle on screen keyboard
                         if(!OnScreenKeyboard.Toggle())
                         {
                             // Fallback to CTRL+WIN+O
@@ -94,8 +94,7 @@ namespace SteamController.Profiles.Default
         {
             if(c.Steam.BtnOptions.Pressed())
             {
-                // c.Keyboard.KeyPress(VirtualKeyCode.LWIN, VirtualKeyCode.TAB);
-                c.Keyboard.KeyPress(VirtualKeyCode.SHIFT, VirtualKeyCode.F10);
+                c.Keyboard.KeyPress(VirtualKeyCode.APPS);
 
                 return true;
             }
@@ -103,7 +102,6 @@ namespace SteamController.Profiles.Default
             
             if(c.Steam.BtnMenu.Pressed())
             {
-                // c.Keyboard.KeyPress(VirtualKeyCode.F11);
                 c.Keyboard.KeyPress(VirtualKeyCode.LWIN, VirtualKeyCode.TAB);
 
                 return true;

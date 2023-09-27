@@ -34,13 +34,6 @@ namespace SteamController
             set { Set("EnableDS4Support", value); }
         }
 
-        [Description("If current foreground process uses overlay, treat it as a game.")]
-        public bool DetectRTSSForeground
-        {
-            get { return Get<bool>("DetectRTSSForeground", false); }
-            set { Set("DetectRTSSForeground", value); }
-        }
-
         [Description("Create a debug log in Documents/SteamDeckTools/Logs.")]
         public bool EnableDebugLogging
         {

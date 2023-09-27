@@ -35,7 +35,6 @@ namespace SteamController
             Managers = {
                 new Managers.ProcessManager(),
                 new Managers.SteamManager(),
-                new Managers.RTSSManager(),
                 new Managers.ProfileSwitcher(),
                 new Managers.SteamConfigsManager(),
                 new Managers.SharedDataManager(),
@@ -148,9 +147,6 @@ namespace SteamController
                 startupItem.Click += delegate { startupItem.Checked = startupManager.Startup = !startupManager.Startup; };
                 contextMenu.Items.Add(startupItem);
             }
-
-            // var checkForUpdatesItem = contextMenu.Items.Add("&Check for Updates");
-            // checkForUpdatesItem.Click += delegate { Instance.RunUpdater(TitleWithVersion, true); };
 
             var helpItem = contextMenu.Items.Add("&Help");
             helpItem.Click += delegate { Dependencies.OpenLink("https://github.com/aenerv7/steam-deck-tools"); };
